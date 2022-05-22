@@ -18,7 +18,7 @@ class ShopeeSpider(scrapy.Spider):
     
     def parseListing(self, response):
         l = ItemLoader(item=Listing(), response=response)
-        l.add_css('name', 'div.VCNVHn span::text')
+        l.add_css('name', 'div.VCNVHn > span::text')
         l.add_css('rating', 'div.pmmxKx::text')
         l.add_css('num_rating', 'div.MrYJVA::text')
         l.add_css('num_sold', 'div._45NQT5::text')
