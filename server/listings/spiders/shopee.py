@@ -1,8 +1,9 @@
 from tokenize import String
 import scrapy
 from scrapy.loader import ItemLoader
+from scrapy.shell import inspect_response
 from listings.items import Listing
-from server.main import Item
+#from server.main import Item
 class ShopeeSpider(scrapy.Spider):
     name = "shopee"
 
@@ -11,10 +12,17 @@ class ShopeeSpider(scrapy.Spider):
         yield scrapy.Request(url=url, callback=self.parseListing)
 
     def parse(self, response):
-        for listing in response.css('div.shopee-search-item-result__item::'):
+        listings = response.css('.shopee-search-item-result__item')
+        
+        #if listings:
+        for listing in listings:
             url = listing.css('a::attr(href)').get()
             url = listing.urljoin(url)
             yield scrapy.Request(url=url, callback=self.parseListing)
+        '''
+        else:
+            inspect_response(listings, self)
+        '''
     
     def parseListing(self, response):
         l = ItemLoader(item=Listing(), response=response)
