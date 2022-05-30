@@ -1,6 +1,5 @@
-from lib2to3.pgen2 import driver
-from multiprocessing.spawn import _main
-from tokenize import String
+import typing
+import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -9,9 +8,13 @@ from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from bs4 import BeautifulSoup
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+options = webdriver.ChromeOptions();
+options.add_argument('headless')
+options.add_argument('disable-notifcations')
+options.add_argument('disable-infobars')
+driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
 
-def searchProduct(query: String):
+def searchProduct(query: str):
         query = query.replace(' ', '+')
         url = f"https://shopee.sg/search?keyword={query}"
         driver.get(url)
@@ -20,19 +23,20 @@ def searchProduct(query: String):
 
 def searchListing(driver: webdriver):
         driver.execute_script("""
-        var scroll = document.body.scrollHeight / 10;
-        var i = 0;
-        function scrollit(i) {
-           window.scrollBy({top: scroll, left: 0, behavior: 'smooth'});
-           i++;
-           if (i < 10) {
-            setTimeout(scrollit, 500, i);
-            }
-        }
-        scrollit(i);
+        window.scrollBy({top: document.body.scrollHeight, left: 0, behavior: 'smooth'});
         """)
+        time.sleep(0.5)
+        listings = driver.find_elements(by=By.XPATH, value="//a[@data-sqe='link']")
+        print(len(listings))
+#        for listing in listings:
+
+
+        """
         soup = BeautifulSoup(driver.page_source, "html.parser")
+        i = 1
         for item in soup.find_all('a', {'data-sqe': 'link'}):
-            print(item.get('href'))
+            print(str(i) + ": " + item.get('href'))
+            i+=1
+        """
 
 searchProduct("keyboard")
