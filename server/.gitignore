@@ -1,2 +1,4 @@
 /__pycache__
 /venv
+/listings/__pycache__
+/listings/spiders/__pycache__
