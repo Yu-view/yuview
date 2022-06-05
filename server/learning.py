@@ -17,6 +17,6 @@ for ent in doc.ents:
     if ent.label_ == 'GPE':
         print(ent.text)
 
-doc1 = nlp('fast')
-doc2 = nlp('efficient')
-print(doc1.similarity(doc2))
+d = {'hi':1,'no':2}
+if 'hi' in d:
+    print(d['hi'])
