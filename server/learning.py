@@ -1,11 +1,22 @@
+
+#Import the requisite library
+from distutils.ccompiler import gen_preprocess_options
 import spacy
-nlp = spacy.load("en_core_web_md")  
-doc1 = nlp("I like salty fries and hamburgers.")
-doc2 = nlp("Fast food tastes very good.")
-print(doc1, "<->", doc2, doc1.similarity(doc2))
 
+#Build upon the spaCy Small Model
+nlp = spacy.load("en_core_web_sm")
+text = "In the Tales of Justin, Justin Neo lives in Punggol which is situated in Singapore"
+ruler = nlp.add_pipe("entity_ruler", before="ner")
+patterns = [
+                {"label": "Story","pattern": "Tales of Justin"}
+]
+ruler.add_patterns(patterns)
+doc = nlp(text)
+for ent in doc.ents:
+    print(ent.text,ent.label_)
+    if ent.label_ == 'GPE':
+        print(ent.text)
 
-french_fries = doc1[2:4]
-burgers = doc1[5]
-print(french_fries, "<->", burgers, french_fries.similarity(burgers))
-
+doc1 = nlp('fast')
+doc2 = nlp('efficient')
+print(doc1.similarity(doc2))
