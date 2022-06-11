@@ -33,29 +33,26 @@ class ShopeeSpider(scrapy.Spider):
             listing['price'] = details['price']/100000
             listing['num_rating'] = details['item_rating']["rating_count"][0]
             listing['num_sold'] = details['historical_sold']
-            listing['item_id'] = details['itemid']
-            listing['shop_id'] = details['shopid']
-            listing['reviews'] = []
-            i = 0
-            url = "https://shopee.sg/api/v2/item/get_ratings?filter=0&flag=1&itemid={0}&limit=6&offset={1}&shopid={2}&type=0"
-            yield scrapy.Request(url.format(listing['item_id'], i,listing['shop_id']), meta=listing, callback=self.parse_review, cb_kwargs={'main_url': url, 'i': i})
-            
+            listing['item_id'] = item_id = details['itemid']
+            listing['shop_id'] = shop_id = details['shopid']
+            for i in range(0, listing['num_rating'], 6):
+                url = "https://shopee.sg/api/v2/item/get_ratings?filter=0&flag=1&itemid={item_id}&limit=6&offset={shop_id}&shopid={i}&type=0"
+                print('HERE')
+                yield scrapy.Request(url, meta=listing, callback=self.parse_review)
+            yield listing
         
-    def parse_review(self, response, main_url, i): 
+    def parse_review(self, response):
+        print('HERE')
         listing = response.meta
         data = response.body.decode("utf-8")
         data = json.loads(data)
         ratings = data['data']['ratings'] 
         for rating in ratings:
             ret = {
+                "name": listing['name'],
                 "rating": rating['rating_star']
             }
             comment = rating['comment']
             if comment:
                 ret["comment"] = comment
-            listing['reviews'].append(ret)
-        if i < listing['num_rating']:
-            i += 6
-            yield scrapy.Request(main_url.format(listing['item_id'], i, listing['shop_id']), meta=listing, callback=self.parse_review, cb_kwargs={'main_url': main_url, 'i': i})
-        else:
-            return listing
+            yield ret
