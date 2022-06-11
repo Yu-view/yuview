@@ -33,26 +33,27 @@ class ShopeeSpider(scrapy.Spider):
             listing['price'] = details['price']/100000
             listing['num_rating'] = details['item_rating']["rating_count"][0]
             listing['num_sold'] = details['historical_sold']
-            listing['item_id'] = item_id = details['itemid']
-            listing['shop_id'] = shop_id = details['shopid']
+            listing['item_id'] = details['itemid']
+            listing['shop_id'] = details['shopid']
+            listing['reviews'] = []
             for i in range(0, listing['num_rating'], 6):
-                url = "https://shopee.sg/api/v2/item/get_ratings?filter=0&flag=1&itemid={item_id}&limit=6&offset={shop_id}&shopid={i}&type=0"
-                print('HERE')
-                yield scrapy.Request(url, meta=listing, callback=self.parse_review)
-            yield listing
+                url = f"https://shopee.sg/api/v2/item/get_ratings?filter=0&flag=1&itemid={listing['item_id']}&limit=6&offset={i}&shopid={listing['shop_id']}&type=0"
+                yield scrapy.Request(url, callback=self.parse_review, meta=listing)
+            
         
     def parse_review(self, response):
-        print('HERE')
         listing = response.meta
         data = response.body.decode("utf-8")
         data = json.loads(data)
         ratings = data['data']['ratings'] 
         for rating in ratings:
             ret = {
-                "name": listing['name'],
-                "rating": rating['rating_star']
+                'model':  [i['model_name'] for i in rating['product_items']]
             }
             comment = rating['comment']
             if comment:
                 ret["comment"] = comment
-            yield ret
+            listing['reviews'].append(ret)
+        if listing['num_rating'] == len(listing['reviews']):
+            return listing
+        return
