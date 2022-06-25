@@ -20,6 +20,8 @@ doc = nlp(string)
 
 positive_words = []
 negative_words = []
+total_pos = []
+total_neg = []
 
 for x in doc._.blob.sentiment_assessments.assessments:
   if x[1] > 0:
@@ -29,4 +31,8 @@ for x in doc._.blob.sentiment_assessments.assessments:
   else:
     pass
 
+total_pos.append(', '.join(set(positive_words)))
+total_neg.append(', '.join(set(negative_words)))
+
 print(positive_words)
+print(total_pos)
