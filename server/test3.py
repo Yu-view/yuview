@@ -21,8 +21,8 @@ string = ''
 for list in lst:
     string += list[0]
 # print(string)
-nlp = spacy.load("en_core_web_sm")
-# nlp = spacy.load("en_core_web_md")
+nlp1 = spacy.load("en_core_web_sm")
+nlp = spacy.load("en_core_web_md")
 nlp.add_pipe('spacytextblob')
 datas = nlp(string)
 
@@ -39,14 +39,12 @@ def reviews_str(data,name):
         string += list[0]
     return string
 
-sentiment = datas._.blob.polarity
-sentiment = round(sentiment,2)
-if sentiment > 0:
-  sent_label = "Positive"
-else:
-  sent_label = "Negative"
+doc = nlp1(string)
+
 positive_words = []
 negative_words = []
+total_pos = []
+total_neg = []
 for x in datas._.blob.sentiment_assessments.assessments:
   if x[1] > 0:
     positive_words.append(x[0][0])
@@ -54,8 +52,11 @@ for x in datas._.blob.sentiment_assessments.assessments:
     negative_words.append(x[0][0])
   else:
     pass
-print(positive_words)
-print(negative_words)
+total_pos.append(', '.join(set(positive_words)))
+total_neg.append(', '.join(set(negative_words)))
+# print(positive_words)
+# print(negative_words)
+# print(total_pos)
 
 def summary(doc):
     d = {}
