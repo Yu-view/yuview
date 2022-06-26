@@ -68,6 +68,7 @@ for word in negative_words:
         negative_count[word] = 1
     else:
         negative_count[word] += 1
+
 def sorted(count,no):
     lst = []
     for word in count:
@@ -82,7 +83,7 @@ def sorted(count,no):
 # sorted(positive_count,4)
 # sorted(negative_count,4)
 
-def review(count1,count2,no1,no2):
+def common_words(count1,count2,no1,no2):
     positive = sorted(count1,no1)
     negative = sorted(count2,no2)
     positive_string = ''
@@ -93,7 +94,44 @@ def review(count1,count2,no1,no2):
         negative_string += ', ' + word[0] + '(' + str(word[1]) + ')'
     print('Top positive words are' + positive_string +'. Top negative words are' + negative_string +'.')
 
-review(positive_count,negative_count,4,4)
+# common_words(positive_count,negative_count,4,4)
+
+def review(data,name,no1,no2):
+    doc = nlp(reviews_str(data,name))
+    positive_words = []
+    negative_words = []
+    total_pos = []
+    total_neg = []
+    for x in doc._.blob.sentiment_assessments.assessments:
+        if x[1] > 0:
+            positive_words.append(x[0][0])
+        elif x[1] < 0:
+            negative_words.append(x[0][0])
+        else:
+            pass
+    total_pos.append(', '.join(set(positive_words)))
+    total_neg.append(', '.join(set(negative_words)))
+    positive_count = {}
+    negative_count = {}
+    for word in positive_words:
+        if word not in positive_count:
+            positive_count[word] = 1
+        else:
+            positive_count[word] += 1
+    for word in negative_words:
+        if word not in negative_count:
+            negative_count[word] = 1
+        else:
+            negative_count[word] += 1
+    for lists in data:
+        if lists['name'] == name:
+            print('Rating: ' + str(lists['rating']))
+            print('No of ratings: ' + str(lists['num_rating']))
+            print('Price: ' + str(lists['price']))
+            print('Quantity sold: ' + str(lists['num_sold']))
+    return common_words(positive_count,negative_count,no1,no2)
+
+review(y,"Lifely Wireless Keyboard Mouse Set - Cutie Kitty Keyboard with Power Saving, Muted Keys, Adds Good Mood to Your WorkDesk",2,2)
 
 def summary(doc):
     d = {}
