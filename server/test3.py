@@ -73,7 +73,7 @@ def sorted(count,no):
     for word in count:
         lst.append([word,count[word]])
     lst.sort(key= lambda x:x[1], reverse= True)
-    print(lst[0:no])
+    return(lst[0:no])
 
 # print(positive_words)
 # print(negative_words)
@@ -87,11 +87,11 @@ def review(count1,count2,no1,no2):
     negative = sorted(count2,no2)
     positive_string = ''
     negative_string = ''
-    for i in range(len(positive)):
-        positive_string += positive[i][0] + ': ' + str(positive[i][1])
-    for i in range(len(negative)):
-        negative_string += negative[i][0] + ': ' + str(negative[i][1])
-    print('Top positive words are: ' + positive_string +'. Top negative words are: ' + negative_string +'.')
+    for word in positive:
+        positive_string += ', ' + word[0] + '(' + str(word[1]) + ')'
+    for word in negative:
+        negative_string += ', ' + word[0] + '(' + str(word[1]) + ')'
+    print('Top positive words are' + positive_string +'. Top negative words are' + negative_string +'.')
 
 review(positive_count,negative_count,4,4)
 
