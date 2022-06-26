@@ -1,13 +1,14 @@
 import spacy
 from spacytextblob.spacytextblob import SpacyTextBlob
+import pandas as pd
 import json
 import time
-import scrapy
-from scrapy.crawler import CrawlerProcess
-from listings.spiders.shopee import ShopeeSpider
+# import scrapy
+# from scrapy.crawler import CrawlerProcess
+# from listings.spiders.shopee import ShopeeSpider
 
 start_time = time.time()
-process = CrawlerProcess()
+# process = CrawlerProcess()
 data = open('test.json')
 y = json.load(data)
 # print(y[1])
@@ -21,8 +22,8 @@ string = ''
 for list in lst:
     string += list[0]
 # print(string)
-nlp1 = spacy.load("en_core_web_sm")
-nlp = spacy.load("en_core_web_md")
+nlp = spacy.load("en_core_web_sm")
+nlp1 = spacy.load("en_core_web_md")
 nlp.add_pipe('spacytextblob')
 datas = nlp(string)
 
@@ -45,6 +46,7 @@ positive_words = []
 negative_words = []
 total_pos = []
 total_neg = []
+
 for x in datas._.blob.sentiment_assessments.assessments:
   if x[1] > 0:
     positive_words.append(x[0][0])
@@ -54,9 +56,44 @@ for x in datas._.blob.sentiment_assessments.assessments:
     pass
 total_pos.append(', '.join(set(positive_words)))
 total_neg.append(', '.join(set(negative_words)))
+positive_count = {}
+negative_count = {}
+for word in positive_words:
+    if word not in positive_count:
+        positive_count[word] = 1
+    else:
+        positive_count[word] += 1
+for word in negative_words:
+    if word not in negative_count:
+        negative_count[word] = 1
+    else:
+        negative_count[word] += 1
+def sorted(count,no):
+    lst = []
+    for word in count:
+        lst.append([word,count[word]])
+    lst.sort(key= lambda x:x[1], reverse= True)
+    print(lst[0:no])
+
 # print(positive_words)
 # print(negative_words)
 # print(total_pos)
+# print(positive_count)
+# sorted(positive_count,4)
+# sorted(negative_count,4)
+
+def review(count1,count2,no1,no2):
+    positive = sorted(count1,no1)
+    negative = sorted(count2,no2)
+    positive_string = ''
+    negative_string = ''
+    for i in range(len(positive)):
+        positive_string += positive[i][0] + ': ' + str(positive[i][1])
+    for i in range(len(negative)):
+        negative_string += negative[i][0] + ': ' + str(negative[i][1])
+    print('Top positive words are: ' + positive_string +'. Top negative words are: ' + negative_string +'.')
+
+review(positive_count,negative_count,4,4)
 
 def summary(doc):
     d = {}
