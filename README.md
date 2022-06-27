@@ -67,6 +67,8 @@ The user now has a comparison with different purchase options and is able to acc
 
 ## Progress
 
+![Project Log](./DevPlan.png)
+
 ### Milestone 1
 
 For the NLP side of things, we used spaCy to create a code that allowed us to filter out and arrange reviews based on most frequently used words. The code also allows for filtering based on adjectives, adverbs, etc. The code also matches words as synonyms based on similarity, thus creating a more succinct review. We’ve tested out the code with different reviews, but we are still in the process of deciding a suitable similarity percentage for synonyms as well as creating more ways for users to filter the reviews.
