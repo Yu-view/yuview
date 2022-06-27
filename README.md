@@ -61,6 +61,10 @@ The server employs natural language processing (NLP) techniques to deliver a con
 
 The user now has a comparison with different purchase options and is able to access links which redirect them to these sites or bookmark the query.
 
+## Architecture
+
+![Relational Diagram](Architecture.drawio.svg)
+
 ## Progress
 
 ### Milestone 1
