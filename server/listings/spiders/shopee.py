@@ -7,11 +7,9 @@ from listings.items import Listing
 class ShopeeSpider(scrapy.Spider):
     name = "shopee"
     allowed_domains = ['shopee.sg']
-    """
     custom_settings = {
         "ITEM_PIPELINES": {"listings.pipelines.ShopeePipeline": 300}
     }
-    """
 
     def start_requests(self):
         start_url = f'https://shopee.sg/search?keyword={self.query}' 
@@ -61,4 +59,3 @@ class ShopeeSpider(scrapy.Spider):
             listing['reviews'].append(ret)
         if listing['num_rating'] == len(listing['reviews']):
             return listing
-        return

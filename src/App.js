@@ -2,7 +2,7 @@ import { CssBaseline } from "@mui/material";
 import React from "react";
 import { QueryProvider } from "./context";
 import NavBar from "./NavBar";
-import Search from "./Search";
+import ResultsDisplay from "./Results";
 
 
 function App() {
@@ -10,7 +10,7 @@ function App() {
     <QueryProvider>
       <React.Fragment>
         <NavBar />
-        <Search />
+        <ResultsDisplay />
         <CssBaseline />
       </React.Fragment>
     </QueryProvider>
