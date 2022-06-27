@@ -1,7 +1,8 @@
+import uvicorn
 import crochet
 crochet.setup()
 from typing import Optional, Union
-from unittest import signals
+from scrapy import signals
 from fastapi import FastAPI
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
@@ -12,7 +13,7 @@ from listings.spiders.shopee import ShopeeSpider
 
 app = FastAPI()
 
-origins = []
+origins = ["*"]
 
 crawl_runner = CrawlerRunner()
 
@@ -30,17 +31,21 @@ async def read_root():
 
 @app.get("/listings")
 async def find_product(query: str):
-    return 
+    async def scrape_with_crochet(search: str):
+        dispatcher.connect(_crawler_result, signal=signals.item_scraped)
+
+        eventual = crawl_runner.crawl(ShopeeSpider, query = search)
+        return eventual
+
+    def _crawler_result(item, response, spider):
+        data.append(dict(item))
+    
+    data = await scrape_with_crochet(search= query)
+    return data
 
 @app.get("/sentiment/{item_id}")
 async def read_item(item_id: int, q: Optional[str] = None):
     return
 
-def scrape_with_crochet():
-    dispatcher.connect(_crawler_result, signal=signals.item_scraped)
-
-    eventual = crawl_runner.crawl(ShopeeSpider)
-    return eventual
-
-def _crawler_result(item, response, spider):
-    return
+if __name__ == "__main__":
+    uvicorn.run(app, host="0.0.0.0", port=8000)

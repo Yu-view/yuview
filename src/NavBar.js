@@ -30,7 +30,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 function NavBar() {
     const [anchorEl, setAnchorEl] = useState(null);
     const [userSearch, setUserSearch] = useState(null);
-    const { query, setQuery } = useContext(QueryContext);
+    const { setQuery, setListings, client} = useContext(QueryContext);
 
     const handleMenu = (event) => {
         setAnchorEl(event.currentTarget);
@@ -46,7 +46,11 @@ function NavBar() {
             query: userSearch,
             search: true
         })
-        console.log(query)
+        client.getListings(userSearch).then((data) => {
+            setListings(data?.results)
+        }).then(() => {
+            setQuery({search: false})
+        })
     }
 
     return (
