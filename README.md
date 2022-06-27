@@ -3,11 +3,17 @@
 ## Getting Started
 
 **Main Tech**
+
 npm: 8.6.0
+
 Python: 3.9.12
+
 spaCy: 3.3.0
+
 Scrapy: 2.6.1
+
 FastAPI: 0.78.0
+
 React: 18.1.0
 
 ### Dependencies
