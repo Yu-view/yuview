@@ -59,4 +59,3 @@ class ShopeeSpider(scrapy.Spider):
             listing['reviews'].append(ret)
         if listing['num_rating'] == len(listing['reviews']):
             return listing
-        return
