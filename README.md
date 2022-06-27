@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-###Main Tech
+### Main Tech
 
 npm: 8.6.0
 
