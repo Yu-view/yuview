@@ -63,7 +63,7 @@ The user now has a comparison with different purchase options and is able to acc
 
 ## Architecture
 
-![Relational Diagram](Architecture.drawio.svg)
+![Relational Diagram](./Architecture.drawio)
 
 ## Progress
 
