@@ -11,6 +11,7 @@ start_time = time.time()
 # process = CrawlerProcess()
 data = open('test.json')
 y = json.load(data)
+start_time2 = time.time()
 # print(y[1])
 lst = []
 for lists in y:
@@ -180,5 +181,5 @@ def summary_adverbs(doc):
 data.close()
 
 print("--- %s seconds ---" % (time.time() - start_time))
-# print("--- %s seconds ---" % (time.time() - start_time2))
+print("--- %s seconds ---" % (time.time() - start_time2))
 # print("--- %s seconds ---" % (time.time() - start_time3))
