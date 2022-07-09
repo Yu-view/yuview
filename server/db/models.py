@@ -1,6 +1,7 @@
 from ast import For
 from calendar import c
 from enum import unique
+from operator import index
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, Float
 from sqlalchemy.orm import relationship
 
@@ -29,8 +30,7 @@ QueryListing = Table(
 class Query(Base):
     __tablename__ = "query"
     id = Column(Integer, primary_key=True, unique=True, index=True)
-    title = Column(String, index=True)
-    description = Column(String)
+    term = Column(String, index=True)
     frequency = Column(Integer)
 
     #Bidirectional
@@ -41,7 +41,7 @@ class Listing(Base):
     id = Column(Integer, primary_key=True, unique=True, index=True)
     title = Column(String)
     rating = Column(Float)
-    prict = Column(Float)
+    price = Column(Float)
     num_rating = Column(Integer)
     num_sold = Column(Integer)
     shop_id = Column(Integer, index=True)
@@ -55,6 +55,8 @@ class Listing(Base):
 class Review(Base):
     __tablename__ = "review"
     id = Column(Integer, primary_key=True, unique=True, index=True)
+    model = Column(String, index=True)
+    comment = Column(String, index=True, nullable=True)
 
     #Parent
     listing_id = Column(Integer, ForeignKey("listing.id"))
