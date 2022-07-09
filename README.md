@@ -2,7 +2,7 @@
 
 ## Getting Started
 
-###Main Tech
+### Main Tech
 
 npm: 8.6.0
 
@@ -20,10 +20,6 @@ React: 18.1.0
 
 For client-side, run `npm install` or `yarn install`.
 For server-side, run `pip install -r requirements.txt` in the /server directory.
-
-## Available Scripts
-
-In the project directory, you can run:
 
 ## Web App
 
