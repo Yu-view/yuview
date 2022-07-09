@@ -2,3 +2,4 @@
 /venv
 /listings/__pycache__
 /listings/spiders/__pycache__
+.env
