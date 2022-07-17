@@ -22,7 +22,6 @@ from .database import Base
 QueryListing = Table(
     "QueryListing",
     Base.metadata,
-    Column(Integer, primary_key=True, index=True),
     Column("query_id", ForeignKey("query.id")),
     Column("listing_id", ForeignKey("listing.id")),
 )
@@ -37,7 +36,7 @@ class Query(Base):
     listings = relationship("Listing", secondary = QueryListing, back_populates="queries")
 
 class Listing(Base):
-    __tableName__ = "listing"
+    __tablename__ = "listing"
     id = Column(Integer, primary_key=True, unique=True, index=True)
     title = Column(String)
     rating = Column(Float)
@@ -60,4 +59,4 @@ class Review(Base):
 
     #Parent
     listing_id = Column(Integer, ForeignKey("listing.id"))
-    listing = relationship("Listing", back_populate="reviews")
+    listing = relationship("Listing", back_populates="reviews")

@@ -60,7 +60,7 @@ def create_user(query: schemas.QueryCreate, db: Session = Depends(get_db)):
     return crud.create_query(db, query=query)
 
 
-@app.get("/query/", response_model=schemas.User)
+@app.get("/query/", response_model=schemas.Query)
 def read_query(query: str, db: Session = Depends(get_db)):
     db_query = crud.get_query_by_term(db, term=query)
     if db_query is None:

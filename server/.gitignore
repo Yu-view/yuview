@@ -3,3 +3,5 @@
 /listings/__pycache__
 /listings/spiders/__pycache__
 .env
+/db/__pycache__
+/api/__pycache__
