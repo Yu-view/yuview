@@ -1,9 +1,10 @@
+from copyreg import constructor
 import uvicorn
 import crochet
 crochet.setup()
 from typing import Optional, Union
 from scrapy import signals
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from scrapy.crawler import CrawlerRunner
@@ -43,8 +44,8 @@ def get_db():
 
 
 @app.post("/create_query/", response_model=schemas.Query)
-async def create_query(query: schemas.QueryCreate, db: Session = Depends(get_db)):
-    async def scrape_with_crochet(search: str):
+async def create_query(query: schemas.QueryBase, db: Session = Depends(get_db)):
+    def scrape_with_crochet(search: str):
         dispatcher.connect(_crawler_result, signal=signals.item_scraped)
 
         eventual = CrawlerRunner().crawl(ShopeeSpider, query = search)
@@ -54,7 +55,10 @@ async def create_query(query: schemas.QueryCreate, db: Session = Depends(get_db)
         data.append(dict(item))
     
     data = await scrape_with_crochet(search= query)
-    query.listings = data
+    reviews = await data['reviews']
+    map(lambda x: schemas.ReviewCreate(model = x['model'], comment = x['comment']))
+    map(lambda x: schemas.ListingCreate(title = x['name'], rating = x['rating'], price = x['price'], num_rating = x['num_rating'], num_sold = x['num_sold'], shop_id = x['shop_id'], item_id = x['item_id']))
+    query = schemas.QueryCreate(term=query.term, listings=data)
     return crud.create_query(db, query=query)
 
 

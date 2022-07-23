@@ -14,16 +14,13 @@ class ListingBase(BaseModel):
     num_sold: int
     shop_id: int
     item_id: int
-    queries: list[QueryBase]
 
 class ReviewBase(BaseModel):
     model: str
     comment: Union[str, None] = None
-    listing_id: int
-    listing: ListingBase
+
 
 class QueryCreate(QueryBase):
-    time: datetime
     listings: list[ListingBase]
 
 class Query(QueryBase):
@@ -33,6 +30,7 @@ class Query(QueryBase):
         orm_mode = True
 
 class ListingCreate(ListingBase):
+    reviews: list[ReviewBase] = []
     pass
 
 class Listing(ListingBase):
@@ -47,6 +45,7 @@ class ReviewCreate(ReviewBase):
 
 class Review(ReviewBase):
     id: int
+    listing_id: int
 
     class Config:
         orm_mode = True

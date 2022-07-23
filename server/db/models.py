@@ -59,4 +59,3 @@ class Review(Base):
 
     #Parent
     listing_id = Column(Integer, ForeignKey("listing.id"))
-    listing = relationship("Listing", back_populates="reviews")
