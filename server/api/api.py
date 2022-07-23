@@ -32,19 +32,6 @@ app.add_middleware(
 async def read_root():
     return {"Hello": "World"}
 
-@app.get("/listings")
-async def find_product(query: str):
-    async def scrape_with_crochet(search: str):
-        dispatcher.connect(_crawler_result, signal=signals.item_scraped)
-
-        eventual = crawl_runner.crawl(ShopeeSpider, query = search)
-        return eventual
-
-    def _crawler_result(item, response, spider):
-        data.append(dict(item))
-    
-    data = await scrape_with_crochet(search= query)
-    return data
 
 # Dependency
 def get_db():
@@ -55,19 +42,30 @@ def get_db():
         db.close()
 
 
-@app.post("/query/", response_model=schemas.Query)
-def create_user(query: schemas.QueryCreate, db: Session = Depends(get_db)):
+@app.post("/create_query/", response_model=schemas.Query)
+async def create_query(query: schemas.QueryCreate, db: Session = Depends(get_db)):
+    async def scrape_with_crochet(search: str):
+        dispatcher.connect(_crawler_result, signal=signals.item_scraped)
+
+        eventual = CrawlerRunner().crawl(ShopeeSpider, query = search)
+        return eventual
+
+    def _crawler_result(item, response, spider):
+        data.append(dict(item))
+    
+    data = await scrape_with_crochet(search= query)
+    query.listings = data
     return crud.create_query(db, query=query)
 
 
-@app.get("/query/", response_model=schemas.Query)
+@app.get("/read_query/", response_model=schemas.Query)
 def read_query(query: str, db: Session = Depends(get_db)):
     db_query = crud.get_query_by_term(db, term=query)
     if db_query is None:
         raise HTTPException(status_code=400, detail="Not scraped")
     return db_query
 
-@app.get("/query/{query_id}", response_model=schemas.Query)
+@app.get("/read_query/{query_id}", response_model=schemas.Query)
 def read_query_by_id(query_id: int, db: Session = Depends(get_db)):
     db_query = crud.get_query(db, query_id==query_id)
     return db_query

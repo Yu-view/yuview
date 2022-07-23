@@ -3,10 +3,8 @@ from typing import Union
 
 from pydantic import BaseModel
 
-
 class QueryBase(BaseModel):
     term: str
-
 
 class ListingBase(BaseModel):
     title: str
@@ -18,29 +16,24 @@ class ListingBase(BaseModel):
     item_id: int
     queries: list[QueryBase]
 
-
 class ReviewBase(BaseModel):
     model: str
     comment: Union[str, None] = None
     listing_id: int
     listing: ListingBase
 
-
 class QueryCreate(QueryBase):
     time: datetime
-
+    listings: list[ListingBase]
 
 class Query(QueryBase):
     id: int
-    listings: list[ListingBase]
 
     class Config:
         orm_mode = True
 
-
 class ListingCreate(ListingBase):
     pass
-
 
 class Listing(ListingBase):
     id: int
@@ -49,10 +42,8 @@ class Listing(ListingBase):
     class Config:
         orm_mode = True
 
-
 class ReviewCreate(ReviewBase):
     pass
-
 
 class Review(ReviewBase):
     id: int
