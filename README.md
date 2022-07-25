@@ -73,11 +73,12 @@ Fig 2. Top bar, which consists of a search tool as well as a drop down tool
 ![Screenshot 2022-07-25 011101](https://user-images.githubusercontent.com/105497963/180812897-ac38423c-5dd2-4911-a7f3-383ad74275fe.png)
 
 
+## Testing
+### Regression testing 
+Performed upon implementing of each feature to detect errors that could hinder future feature implementations
 
-
-
-
-
+### User testing
+Arranged for friends from outside our project to help to test out our application
 
 
 
