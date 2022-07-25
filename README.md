@@ -98,32 +98,17 @@ Our approach of directly scraping the HTML DOM using the Scrapy framework was un
 
 Originally, we were planning to have our code perform the filtering for multiple product listings at one go, but the code was taking too long to run, hence we decided to adjust the code such that it runs for a single product listing based on the page that the user is on.
 
+## Software engineering practices
+Weekly code review: Since our responsibilities were mainly separated into different parts of the code, we decided to review each other’s codes regularly to ensure that our code was working towards our goals and functioning.
+
+Version control using Git/GitHub: We used Github as our main codebase to control versions of our work, allowing us to work on different tasks separately on different branches. This way, we were able to merge our work together with very few clashes. It also made it easier to review each other’s work.
 
 ## Architecture
 
 ![Relational Diagram](./Architecture.drawio.svg)
 
-## Progress
+## Development Plan
 
 ![Project Log](./DevPlan.png)!
 
 
-### Milestone 1
-
-For the NLP side of things, we used spaCy to create a code that allowed us to filter out and arrange reviews based on most frequently used words. The code also allows for filtering based on adjectives, adverbs, etc. The code also matches words as synonyms based on similarity, thus creating a more succinct review. We’ve tested out the code with different reviews, but we are still in the process of deciding a suitable similarity percentage for synonyms as well as creating more ways for users to filter the reviews.
-
-Initially, we intended to work on the data extraction and API first, starting off with Shopee as our first target site. However, we hit a roadblock and realised that Shopee Open API was restricted to sellers and third-party businesses. After trying to find a workaround, we fell back to the less ideal solution of web scraping.
-
-Our approach of directly scraping the HTML DOM using the Scrapy framework was unsuccessful due to the dynamic loading of JS scripts. We then attempted using Selenium + BeautifulSoup to interact with the browser directly. Even though the second approach worked, it was too inefficient due to the time delays required for automated browser input like scrolling and clicking. Eventually, we arrived at the solution of making HTTP requests directly to the Shopee internal API by searching through network data for the link templates.
-
-The next step would be to clean and filter the retrieved data for processing use and ensuring no rate/requests limits on our scraping method, identifying workarounds if needed.
-
-### Milestone 2
-
-One key feedback that we received from milestone 1 was that we did not have anything to show what we had done, such as a mockup of the browser extension. Hence, for milestone 2, our first main focus was creating a working client.
-
-We also started to explore more ways to process the data that we were gathering through our scraping method, such as classifying words based on sentiment analysis. Originally, we were planning to have our code perform the filtering for multiple product listings at one go, but the code was taking too long to run, hence we decided to adjust the code such that it runs for a single product listing based on the page that the user is on.
-
-Taking the Material Design approach for our UI, our user-facing page consists of a sleek and minimal layout, prioritising the clarity and readability of product searches. Future additions for the final milestone would include more information at a single glance such as the product image and recommendation. The API calls required is simple due to the absence of user data storage and the simultaneous retrieval of scraped data.
-
-The biggest improvement in terms of efficiency would be an addition of a query database that provides the product summaries to users upon request. We hope to incorporate a database in the next milestone to avoid the delay in listing consolidation.
