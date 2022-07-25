@@ -16,6 +16,10 @@ FastAPI: 0.78.0
 
 React: 18.1.0
 
+PostgreSQL: 13.2
+
+SQLAlchemy: 1.4
+
 ### Dependencies
 
 For client-side, run `npm install` or `yarn install`.
