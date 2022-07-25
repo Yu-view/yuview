@@ -1,8 +1,6 @@
-from ast import For
-from calendar import c
-from enum import unique
-from operator import index
-from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, Float
+import sqlalchemy
+from sqlalchemy import Boolean, Column, ForeignKey, Integer, String, Table, Float, BigInteger
+from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -28,7 +26,7 @@ QueryListing = Table(
 
 class Query(Base):
     __tablename__ = "query"
-    id = Column(Integer, primary_key=True, unique=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("gen_random_uuid()"))
     term = Column(String, index=True)
     frequency = Column(Integer)
 
@@ -37,26 +35,25 @@ class Query(Base):
 
 class Listing(Base):
     __tablename__ = "listing"
-    id = Column(Integer, primary_key=True, unique=True, index=True)
-    title = Column(String)
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("gen_random_uuid()"))
+    name = Column(String)
     rating = Column(Float)
     price = Column(Float)
     num_rating = Column(Integer)
     num_sold = Column(Integer)
-    shop_id = Column(Integer, index=True)
-    item_id = Column(Integer, unique=True)
+    shop_id = Column(BigInteger)
+    item_id = Column(BigInteger)
 
-    #Children
-    reviews = relationship("Review", back_populates="listing")
     #Bidirectional
     queries = relationship("Query", secondary = QueryListing, back_populates="listings")
+    #Children
+    reviews = relationship("Review")
 
 class Review(Base):
     __tablename__ = "review"
-    id = Column(Integer, primary_key=True, unique=True, index=True)
+    id = Column(UUID(as_uuid=True), primary_key=True, server_default=sqlalchemy.text("gen_random_uuid()"))
     model = Column(String, index=True)
     comment = Column(String, index=True, nullable=True)
 
     #Parent
-    listing_id = Column(Integer, ForeignKey("listing.id"))
-    listing = relationship("Listing", back_populates="reviews")
+    listing_id = Column(UUID(as_uuid=True), ForeignKey("listing.id"))

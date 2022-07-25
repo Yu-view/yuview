@@ -5,3 +5,5 @@
 .env
 /db/__pycache__
 /api/__pycache__
+/alembic/__pycache__
+/alembic/versions/__pycache__

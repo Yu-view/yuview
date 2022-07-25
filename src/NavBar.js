@@ -46,7 +46,7 @@ function NavBar() {
             query: userSearch,
             search: true
         })
-        client.getListings(userSearch).then((data) => {
+        client.getQuery(userSearch).then((data) => {
             setListings(data?.results)
         }).then(() => {
             setQuery({search: false})
