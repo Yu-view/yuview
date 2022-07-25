@@ -1,4 +1,5 @@
 from curses import meta
+from sqlite3 import dbapi2
 from urllib import response
 import scrapy
 import json
@@ -7,9 +8,9 @@ from listings.items import Listing
 class ShopeeSpider(scrapy.Spider):
     name = "shopee"
     allowed_domains = ['shopee.sg']
-    # custom_settings = {
-    #     "ITEM_PIPELINES": {"listings.pipelines.ShopeePipeline": 300}
-    # }
+    custom_settings = {
+        "ITEM_PIPELINES": {"listings.pipelines.ShopeePipeline": 300}
+    }
 
     def start_requests(self):
         start_url = f'https://shopee.sg/search?keyword={self.query}' 
