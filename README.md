@@ -41,11 +41,11 @@ python main.py
 Starts the server at root url [http://localhost:8000](http://localhost:8000).
 Go to the interactive API documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
 
-## Project Vision
+## Project Motivation
 
 In modern society, it is common for people to make use of online shopping to purchase their products due to its convenience and affordability. However, one thing we realised was that despite the large number of reviews on a product, nobody will actually spend time reading through every single review as it can be very tedious and tiring. Furthermore, although a star rating is displayed to reflect the general satisfaction level of consumers, what buyers are looking for are mostly the adjectives or descriptions given by the reviews, hence the star rating is not as important as the written reviews.
 
-## Summary
+## Aim
 
 We aim to create a web extension that takes in all the reviews for a product and summarises them based on most frequently used phrases or words, thus making reviews easier and more efficient for buyers to digest.
 A Google Chrome browser extension that identifies the product a user is interested in from the webpage and retrieves data from various e-commerce sites, collating information such as user ratings, reviews and prices.
