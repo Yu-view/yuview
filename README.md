@@ -56,11 +56,50 @@ A Google Chrome browser extension that identifies the product a user is interest
 - As a seller, I want buyers to be more convinced on the products I am selling before they decide on whether they purchase them or not.
 - As a user of online shopping websites, I do not want to spend too much time scrolling through each review.
 
-## Features
-
+## Core Features
 The server employs natural language processing (NLP) techniques to deliver a concise summary of all user reviews and provides an aggregate “value” rating.
 
 The user now has a comparison with different purchase options and is able to access links which redirect them to these sites or bookmark the query.
+
+Fig 1. Home page
+
+
+Fig 2. Top bar, which consists of a search tool as well as a drop down tool
+
+
+
+
+
+
+
+
+
+
+
+
+Tech Stack
+spaCy
+We used spaCy as our main natural language processing tool in order to process the data that we scraped and then use it to create our reviews
+FastAPI
+
+
+Scrapy
+We used Scrapy to scrape data of the shopping website
+NodeJS
+NodeJS was used for the installation of packages
+Github
+Our project is uploaded onto github and any changes are reflected within the repository. It is also used for us to push/pull new content that we are working on.
+
+Challenges faced
+Initially, we intended to work on the data extraction and API first, starting off with Shopee as our first target site. However, we hit a roadblock and realised that Shopee Open API was restricted to sellers and third-party businesses. After trying to find a workaround, we fell back to the less ideal solution of web scraping.
+
+Our approach of directly scraping the HTML DOM using the Scrapy framework was unsuccessful due to the dynamic loading of JS scripts. We then attempted using Selenium + BeautifulSoup to interact with the browser directly. Even though the second approach worked, it was too inefficient due to the time delays required for automated browser input like scrolling and clicking. Eventually, we arrived at the solution of making HTTP requests directly to the Shopee internal API by searching through network data for the link templates.
+
+
+
+
+Originally, we were planning to have our code perform the filtering for multiple product listings at one go, but the code was taking too long to run, hence we decided to adjust the code such that it runs for a single product listing based on the page that the user is on.
+
 
 ## Architecture
 
