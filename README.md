@@ -80,7 +80,7 @@ Fig 2. Top bar, which consists of a search tool as well as a drop down tool
 ## Tech Stack
 ### spaCy
 We used spaCy as our main natural language processing tool in order to process the data that we scraped and then use it to create our reviews
-# FastAPI
+### FastAPI
 
 ### Scrapy
 We used Scrapy to scrape data of the shopping website
