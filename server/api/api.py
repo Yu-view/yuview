@@ -1,6 +1,7 @@
 from importlib.resources import read_text
 import sys, os
 from typing import Optional, Union
+from urllib import response
 from uuid import UUID
 from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Response, status
 from fastapi.middleware.cors import CORSMiddleware
@@ -61,7 +62,15 @@ def read_query(query: str, bt: BackgroundTasks, response: Response, db: Session 
 #     db_query = crud.get_query(db, query_id==query_id)
 #     return db_query
 
-@app.put("/run_summary/")
-def run_summary(query_id: UUID, db: Session = Depends(get_db)):
-    db_query = crud.get_query(db, query_id==query_id)
-    return
+@app.get("/get_listing/{listing_id}", response_model=schemas.Listing)
+def get_listing(listing_id: UUID, db: Session = Depends(get_db)):
+    db_listing = crud.get_listing(db, listing_id= listing_id)
+    return db_listing
+
+# @app.put("/run_summary/")
+# def run_summary(query_id: UUID, db: Session = Depends(get_db)):
+#     listings = crud.get_listings_by_query(db, query_id=query_id)
+#     for listing in listings:
+#         reviews = crud.get_reviews_by_listing(db, listing_id=listing.id)
+#         listing.summary.append(nlp(reviews))
+#     return listings

@@ -38,7 +38,7 @@ class Review(ReviewBase):
         orm_mode = True
 class Listing(ListingBase):
     id: UUID
-    reviews: list[Review] = []
+    summary: Union[str, None] = None
     class Config:
         orm_mode = True
 

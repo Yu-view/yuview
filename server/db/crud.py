@@ -1,19 +1,26 @@
+from uuid import UUID
 from sqlalchemy.orm import Session
 
 from . import models
 from api import schemas
 
-def get_query(db: Session, query_id: int):
+def get_query(db: Session, query_id: UUID):
     return db.query(models.Query).filter(models.Query.id == query_id).first()
 
 def get_query_by_term(db: Session, term: str):
     return db.query(models.Query).filter(models.Query.term == term).first()
 
-def get_listing(db: Session, listing_id: int):
+def get_listing(db: Session, listing_id: UUID):
     return db.query(models.Listing).filter(models.Listing.id == listing_id).first()
+
+def get_listings_by_query(db: Session, query_id: UUID):
+    return db.query(models.Listing).filter(models.Listing.queries.any(id=query_id)).all()
 
 def get_review(db: Session, review_id: int):
     return db.query(models.Review).filter(models.Review.id == review_id).first()
+
+def get_reviews_by_listing(db: Session, listing_id: UUID):
+    return db.query(models.Review).filter(models.Review.listing_id == listing_id).all()
 
 def create_query(db: Session, query: schemas.QueryCreate):
     db_query = models.Query(term = query.term, frequency = 1)
