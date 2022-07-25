@@ -109,6 +109,7 @@ Version control using Git/GitHub: We used Github as our main codebase to control
 
 ## Development Plan
 
-![Project Log](./DevPlan.png)!
+![Screenshot 2022-07-25 233801](https://user-images.githubusercontent.com/105497963/180818474-dc010646-a001-4fc1-909d-3553a082f524.png)
+
 
 
