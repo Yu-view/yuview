@@ -78,15 +78,15 @@ Fig 2. Top bar, which consists of a search tool as well as a drop down tool
 
 
 ## Tech Stack
-# spaCy
+### spaCy
 We used spaCy as our main natural language processing tool in order to process the data that we scraped and then use it to create our reviews
 # FastAPI
 
-# Scrapy
+### Scrapy
 We used Scrapy to scrape data of the shopping website
-# NodeJS
+### NodeJS
 NodeJS was used for the installation of packages
-# Github
+### Github
 Our project is uploaded onto github and any changes are reflected within the repository. It is also used for us to push/pull new content that we are working on.
 
 ## Challenges faced
