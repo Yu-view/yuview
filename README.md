@@ -48,6 +48,7 @@ In modern society, it is common for people to make use of online shopping to pur
 ## Summary
 
 We aim to create a web extension that takes in all the reviews for a product and summarises them based on most frequently used phrases or words, thus making reviews easier and more efficient for buyers to digest.
+A Google Chrome browser extension that identifies the product a user is interested in from the webpage and retrieves data from various e-commerce sites, collating information such as user ratings, reviews and prices.
 
 ## User Stories
 
@@ -56,8 +57,6 @@ We aim to create a web extension that takes in all the reviews for a product and
 - As a user of online shopping websites, I do not want to spend too much time scrolling through each review.
 
 ## Features
-
-A Google Chrome browser extension identifies the product a user is interested in from the webpage and retrieves data from various e-commerce sites, collating information such as user ratings, reviews and prices.
 
 The server employs natural language processing (NLP) techniques to deliver a concise summary of all user reviews and provides an aggregate “value” rating.
 
