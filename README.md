@@ -62,9 +62,11 @@ The server employs natural language processing (NLP) techniques to deliver a con
 The user now has a comparison with different purchase options and is able to access links which redirect them to these sites or bookmark the query.
 
 Fig 1. Home page
+![Screenshot 2022-07-25 010741](https://user-images.githubusercontent.com/105497963/180813066-7bf4e4bd-74b4-4c91-9477-89ff58b4bd0a.png)
 
 
 Fig 2. Top bar, which consists of a search tool as well as a drop down tool
+![Screenshot 2022-07-25 011101](https://user-images.githubusercontent.com/105497963/180812897-ac38423c-5dd2-4911-a7f3-383ad74275fe.png)
 
 
 
@@ -103,7 +105,8 @@ Originally, we were planning to have our code perform the filtering for multiple
 
 ## Progress
 
-![Project Log](./DevPlan.png)
+![Project Log](./DevPlan.png)!
+
 
 ### Milestone 1
 
