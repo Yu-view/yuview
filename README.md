@@ -27,23 +27,12 @@ For server-side, run `pip install -r requirements.txt` in the /server directory.
 
 ## Web App
 
- `yarn start`
+Open [https://yuview.vercel.app/](https://yuview.vercel.app/) to view it in your browser.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Public API
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
-
-## Server
-
-```
-cd server/
-python main.py
-```
-
-Starts the server at root url [http://localhost:8000](http://localhost:8000).
-Go to the interactive API documentation at [http://localhost:8000/docs](http://localhost:8000/docs).
+Starts the server at root url [https://yuview-production.up.railway.app/](https://yuview-production.up.railway.app/).
+Go to the interactive API documentation at [https://yuview-production.up.railway.app/docs](https://yuview-production.up.railway.app/docs).
 
 ## Project Motivation
 
@@ -115,6 +104,3 @@ Version control using Git/GitHub: We used Github as our main codebase to control
 ## Development Plan
 
 ![Screenshot 2022-07-25 233801](https://user-images.githubusercontent.com/105497963/180818474-dc010646-a001-4fc1-909d-3553a082f524.png)
-
-
-
