@@ -61,10 +61,10 @@ def get_listing(listing_id: UUID, db: Session = Depends(get_db)):
     db_listing = crud.get_listing(db, listing_id= listing_id)
     return db_listing
 
-# @app.put("/run_summary/")
-# def run_summary(query_id: UUID, db: Session = Depends(get_db)):
-#     listings = crud.get_listings_by_query(db, query_id=query_id)
-#     for listing in listings:
-#         reviews = crud.get_reviews_by_listing(db, listing_id=listing.id)
-#         listing.summary.append(nlp(reviews))
-#     return listings
+@app.put("/run_summary/")
+def run_summary(query_id: UUID, db: Session = Depends(get_db)):
+    listings = crud.get_listings_by_query(db, query_id=query_id)
+    # for listing in listings:
+    #     reviews = crud.get_reviews_by_listing(db, listing_id=listing.id)
+    #     listing.summary.append(nlp(reviews))
+    return listings
