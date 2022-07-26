@@ -1,8 +1,8 @@
-/__pycache__
 /venv
-/listings/__pycache__
-/listings/spiders/__pycache__
+/app/__pycache__
+/app/listings/__pycache__
+/app/listings/spiders/__pycache__
 .env
-/db/__pycache__
-/api/__pycache__
+/app/db/__pycache__
+/app/api/__pycache__
 /alembic
