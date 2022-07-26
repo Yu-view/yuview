@@ -2,7 +2,7 @@ from uuid import UUID
 from sqlalchemy.orm import Session
 
 from . import models
-from api import schemas
+from app.api import schemas
 
 def get_query(db: Session, query_id: UUID):
     return db.query(models.Query).filter(models.Query.id == query_id).first()

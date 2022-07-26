@@ -1,17 +1,11 @@
-from importlib.resources import read_text
-import sys, os
-from typing import Optional, Union
-from urllib import response
+import os
+from platform import python_branch
 from uuid import UUID
-from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Response, status
+from fastapi import FastAPI, HTTPException, Depends, BackgroundTasks, Response
 from fastapi.middleware.cors import CORSMiddleware
-from scrapy.crawler import CrawlerProcess
-from scrapy.utils.project import get_project_settings
 from sqlalchemy.orm import Session
-from twisted.internet import reactor
-from listings.spiders.shopee import ShopeeSpider
-from db import models, database, crud
-from . import schemas
+from app.db import crud, database, models
+from app.api import schemas
 
 models.Base.metadata.create_all(bind=database.engine)
 
