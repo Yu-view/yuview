@@ -1,3 +1,4 @@
+alembic==1.8.1
 anyio==3.6.1
 asgiref==3.5.1
 async-generator==1.10
@@ -33,6 +34,7 @@ jmespath==1.0.0
 joblib==1.1.0
 langcodes==3.3.0
 lxml==4.8.0
+Mako==1.2.1
 MarkupSafe==2.1.1
 murmurhash==1.0.7
 nltk==3.7

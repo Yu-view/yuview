@@ -21,8 +21,8 @@ class FastAPIClient {
 		return client
 	}
 
-	getListings(search) {
-		return this.apiClient.get(`/listings/?query=${search}`).then(({data}) => {  // 5
+	getQuery(search) {
+		return this.apiClient.get(`/read_query/?query=${search}`).then(({data}) => {  // 5
 			return data
 		})
 	}

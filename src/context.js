@@ -7,7 +7,7 @@ const client = new FastAPIClient();
 
 function QueryProvider({children}) {
     const [query, setQuery] = useState({query: "", search: false});
-    const [listings, setListings] = useState(mockData);
+    const [listings, setListings] = useState([{name: "Search something"}]);
 
     const value = {query, setQuery, listings, setListings, client}
     return <QueryContext.Provider value={value}>{children}</QueryContext.Provider>

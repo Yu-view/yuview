@@ -9,23 +9,47 @@ from itemadapter import ItemAdapter
 import spacy
 from scrapy.utils.defer import maybe_deferred_to_future
 from scrapy.exceptions import DropItem
+from db import database, crud, models
+from api import schemas
 
 class ShopeePipeline:
 
     def open_spider(self, spider):
         self.nlp = spacy.load("en_core_web_md")
+        self.db = database.SessionLocal()
+        self.query = schemas.QueryBase(term=spider.query)
+        self.listings = list()
 
     async def process_item(self, item, spider):
         if not item:
             raise DropItem("Missing listing")
         else:
-            adapter = ItemAdapter(item)
-            reviews = adapter.get("reviews")
-            data = self.nlp("".join(map(lambda x: x['comment'] if 'comment' in x else '', reviews)))
-            adapter["sum_adj"] = self.summary_adjectives(data)
-            adapter["sum_adv"] = self.summary_adverbs(data)
+            listing = ItemAdapter(item)
+            self.listings.append(listing)
             return item
+            
+        # else:
+        #     adapter = ItemAdapter(item)
+        #     reviews = adapter.get("reviews")
+        #     data = self.nlp("".join(map(lambda x: x['comment'] if 'comment' in x else '', reviews)))
+        #     adapter["sum_adj"] = self.summary_adjectives(data)
+        #     adapter["sum_adv"] = self.summary_adverbs(data)
+        #     return item
+    
+    def close_spider(self, spider):
+        query = schemas.QueryCreate(**self.query.dict(), listings= self.listings)
+        crud.create_query(db= self.db, query= query)
+        self.db.close()
 
+
+    # async def create_listing(self, listing):
+    #     listing["queries"] = [self.query]
+    #     reviews = listing.pop("reviews")
+    #     created = await maybe_deferred_to_future(crud.create_listing(db=self.db, listing=schemas.ListingCreate.parse_obj(listing)))
+    #     for review in reviews:
+    #         review["listing_id"] = created.id
+    #         item = await maybe_deferred_to_future(crud.create_review(db=self.db, review=schemas.ReviewCreate.parse_obj(review)))
+    #     return created
 
 
     def summary(self, doc):
